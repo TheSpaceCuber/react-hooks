@@ -2,16 +2,26 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import reportWebVitals from './reportWebVitals';
+import { MatomoProvider, createInstance } from '@datapunt/matomo-tracker-react'
+
+const instance = createInstance({
+  urlBase: "//172.18.0.3/",
+  siteId: 5,
+  heartBeat: {
+    active: true,
+    seconds: 10,
+  },
+  linkTracking: false,
+  configurations: {
+    disableCookies: true,
+    setSecureCookie: true,
+    setRequestMethod: "POST",
+  },
+});
 
 ReactDOM.render(
-  <React.StrictMode>
+  <MatomoProvider value={instance}>
     <App />
-  </React.StrictMode>,
+  </MatomoProvider>,
   document.getElementById('root')
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
